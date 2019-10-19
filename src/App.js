@@ -34,7 +34,6 @@ class App extends Component {
     }
   }
   onAddMessage = (message) => {
-    console.log(message);
     	this.setState((currentState) => ({
         	messages: [...currentState.messages, message]
         }));

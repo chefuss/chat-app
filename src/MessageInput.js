@@ -13,8 +13,8 @@ class MessageInput extends Component {
   }
   onAddMessage = (event) => {
   	event.preventDefault();
-    console.log(this.state);
     this.props.onAddMessage(this.state.message);
+    this.clearForm();
   }
   handleInputMessage(event) {
     const thisUser = this.props.user;
@@ -30,17 +30,24 @@ class MessageInput extends Component {
   allowed to submit.
   */
   isDisabled = () => {
-    return false;
+    if (this.state.message.text !== '') {
+      return false;
+    }
+    return true;
   };
   clearForm = () => {
     this.setState({
-    	message: ''
+    	message: {
+        	username: '',
+          	text: ''
+        }
     })
   }
   render() {
+    const { message } = this.state;
   	return (
             <form className="input-group">
-            	<input type="text" className="form-control" placeholder="Enter your message..." onChange={this.handleInputMessage}/>
+            	<input type="text" className="form-control" value= {message.text} placeholder="Enter your message..." onChange={this.handleInputMessage}/>
             	<div className="input-group-append">
             		<button className="btn submit-button" disabled={this.isDisabled()} onClick={this.onAddMessage}> SEND </button>
       			</div>
